@@ -1,1 +1,3 @@
-# prj_jsp_docker
+# JSP 개발 환경 
+  * docker
+  * 
