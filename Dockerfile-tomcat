@@ -1,0 +1,5 @@
+FROM tomcat:latest
+RUN apt-get update && apt-get -y install \
+    vim
+RUN mkdir -p /usr/local/tomcat/webapps/ROOT/WEB-INF/lib
+RUN touch /usr/local/tomcat/webapps/ROOT/index.html

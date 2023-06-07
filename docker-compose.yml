@@ -1,0 +1,31 @@
+version: "3.7"
+services:
+  db:
+    image: mysql
+    restart: always
+    command: mysqld --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: lovejsy1103
+      MYSQL_DATABASE: DB_bootmarket
+    container_name: JSPBook-db
+    ports:
+      - "3306:3306"
+    volumes:
+      - "./db/data:/var/lib/mysql"
+  tomcat:
+    image: tomcat:latest
+    environment:
+      - "JAVA_OPTS=-Dspring.profiles.active=dev"
+    build:
+      context: .
+      dockerfile: Dockerfile-tomcat
+    container_name: JSPBook-ui
+    ports:
+      - "8008:8080"
+    volumes:
+      #톰캣 마운트 로컬 <-> 도커
+      #: - ./tomcat/webapps:/usr/local/tomcat/webapps
+      - ./JSPBook/src/main/webapp:/usr/local/tomcat/webapps
+    links:
+      - db
+    restart: always
